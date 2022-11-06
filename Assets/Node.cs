@@ -6,4 +6,5 @@ public class Node : MonoBehaviour
 {
     public List<Node> previousNodes;
     public List<Node> futureNodes;
+
 }

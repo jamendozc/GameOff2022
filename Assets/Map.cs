@@ -10,27 +10,17 @@ public class Map : MonoBehaviour
     public GameObject nodePrefab;
     public GameObject linePrefab;
 
+    private readonly float firstLayerXpos = 8;
+    private readonly float distanceBetweenLayers = 2;
+
+
     // Start is called before the first frame update
     void Start()
     {
         layers = new List<List<GameObject>>();
         paths = new List<List<GameObject>>();
 
-        List<GameObject> tempLayer = new List<GameObject>();
-        InitLayer(tempLayer, 8, 1);
-        layers.Add(tempLayer);
-
-        for (int i = 0; i < numberOfLayers; i++)
-        {
-            tempLayer = new List<GameObject>();
-            int numberOfNodes = Random.Range(2, 5);
-            InitLayer(tempLayer, 6 - 2 * i, numberOfNodes);
-            layers.Add(tempLayer);
-        }
-
-        tempLayer = new List<GameObject>();
-        InitLayer(tempLayer, 6 - 2 * numberOfLayers, 1);
-        layers.Add(tempLayer);
+        InitAllLayers(layers, numberOfLayers);
 
         for (int i = 0; i < layers.Count - 1; i++)
         {
@@ -199,30 +189,48 @@ public class Map : MonoBehaviour
         return path;
     }
 
-    void InitLayer(List<GameObject> layer, int x, int numberOfNodes)
+
+    void InitAllLayers(List<List<GameObject>> layers, int numberOfLayers)
+    {
+        List<GameObject> tempLayer = new List<GameObject>();
+        InitLayer(tempLayer, firstLayerXpos, 1);
+        layers.Add(tempLayer);
+
+        for (int i = 0; i < numberOfLayers; i++)
+        {
+            tempLayer = new List<GameObject>();
+            int numberOfNodes = Random.Range(2, 5);
+            InitLayer(tempLayer, 6 - 2 * i, numberOfNodes);
+            layers.Add(tempLayer);
+        }
+
+        tempLayer = new List<GameObject>();
+        InitLayer(tempLayer, 6 - 2 * numberOfLayers, 1);
+        layers.Add(tempLayer);
+    }
+    void InitLayer(List<GameObject> layer, float x, int numberOfNodes)
     {
         int y0 = -3;
         float yi = y0;
         int count = numberOfNodes;
-        float distance = 2;
         if(count == 4)
         {
-            yi -= distance;
+            yi -= distanceBetweenLayers;
         }
         if(count == 3)
         {
-            yi -= distance / 2;
+            yi -= distanceBetweenLayers / 2;
         }
         if(count == 1)
         {
-            yi += distance / 2;
+            yi += distanceBetweenLayers / 2;
         }
-        GameObject gmLayer = new GameObject("Layer " + ((6-x)/2 + 1));
+        GameObject gmLayer = new GameObject("Layer " + ((firstLayerXpos - x - distanceBetweenLayers) / distanceBetweenLayers + 1));
         gmLayer.transform.SetParent(this.transform);
 
         for (int i = 0; i < count; i++)
         {
-            yi += distance;
+            yi += distanceBetweenLayers;
             var node = Instantiate(nodePrefab, gmLayer.transform, true);
             Vector3 pos = node.transform.position;
             pos.x = x;
