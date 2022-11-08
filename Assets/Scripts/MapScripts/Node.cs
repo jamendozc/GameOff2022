@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    public List<Node> previousNodes;
-    public List<Node> futureNodes;
+    public List<Line> incomingLines;
+    public List<Line> outgoingLines;
 
 }
