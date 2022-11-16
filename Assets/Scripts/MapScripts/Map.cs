@@ -10,6 +10,10 @@ public class Map : MonoBehaviour
     public GameObject nodePrefab;
     public GameObject linePrefab;
 
+    public NodeData startNode;
+    public NodeData finishNode;
+    public NodePool nodePool;
+
     private readonly float firstLayerXpos = 8;
     private readonly float distanceBetweenLayers = 2;
 
@@ -205,6 +209,8 @@ public class Map : MonoBehaviour
     {
         List<Node> tempLayer = new List<Node>();
         InitLayer(tempLayer, firstLayerXpos, 1);
+        tempLayer[0].isClickable = true;
+        tempLayer[0].AssignNodeData(startNode);
         layers.Add(tempLayer);
 
         for (int i = 0; i < numberOfLayers; i++)
@@ -217,6 +223,7 @@ public class Map : MonoBehaviour
 
         tempLayer = new List<Node>();
         InitLayer(tempLayer, 6 - 2 * numberOfLayers, 1);
+        tempLayer[0].AssignNodeData(finishNode);
         layers.Add(tempLayer);
     }
     void InitLayer(List<Node> layer, float x, int numberOfNodes)
@@ -243,6 +250,8 @@ public class Map : MonoBehaviour
         {
             yi += distanceBetweenLayers;
             GameObject node = Instantiate(nodePrefab, gmLayer.transform, true);
+            node.GetComponent<Node>().AssingRandomNodeData(nodePool);
+
             Vector3 pos = node.transform.position;
             pos.x = x;
             pos.y = yi;

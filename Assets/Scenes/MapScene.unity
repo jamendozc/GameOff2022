@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 695344502}
   - component: {fileID: 695344501}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,9 @@ MonoBehaviour:
   numberOfLayers: 7
   nodePrefab: {fileID: 3851432671154083018, guid: be04f48eae3efea4096e0cf0484f5b9e, type: 3}
   linePrefab: {fileID: 2607469137223439006, guid: 757ff6ceb6fe87840ba895a57ad0396f, type: 3}
+  startNode: {fileID: 11400000, guid: 8a0106c6b243eee4c8a8f974b0def18e, type: 2}
+  finishNode: {fileID: 11400000, guid: 7e3efe574e2abd947a00056692451712, type: 2}
+  nodePool: {fileID: 11400000, guid: fd0de1eac0c41934185e657fb2d07802, type: 2}
 --- !u!212 &695344502
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -320,7 +323,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &930935245
 SpriteRenderer:
   m_ObjectHideFlags: 0
