@@ -4,12 +4,29 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
+    public enum NodeState
+    {
+        ACTIVE,
+        INACTIVE,
+        PASSED
+    }
     public List<Line> incomingLines;
     public List<Line> outgoingLines;
 
-    public bool isClickable = false;
+    private bool isClickable = false;
     private NodeData nodeData;
+    private SpriteRenderer sr;
 
+    public delegate void NodeClicked(Node node);
+    public static event NodeClicked OnNodeClicked;
+
+    public delegate void NodeHovered(Node node, bool isHovering);
+    public static event NodeHovered OnNodeHovered;
+
+    public void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
     public void AssignNodeData(NodeData data)
     {
         nodeData = data;
@@ -24,7 +41,7 @@ public class Node : MonoBehaviour
 
     private void UpdateSprite()
     {
-        GetComponent<SpriteRenderer>().sprite = nodeData.eventImage;
+        sr.sprite = nodeData.eventImage;
     }
 
     public NodeData GetNodeData()
@@ -32,12 +49,69 @@ public class Node : MonoBehaviour
         return nodeData;
     }
 
+    public void SetNodeState(NodeState nodeState)
+    {
+        if(nodeState == NodeState.ACTIVE)
+            isClickable = true;
+        else
+            isClickable = false;
+
+        ColorChange(nodeState);
+    }
+
     public void OnMouseDown()
     {
         if(isClickable)
         {
             Debug.Log("Pressed Node");
+            OnNodeClicked?.Invoke(this);
         }
         
+    }
+
+    public void OnMouseEnter()
+    {
+        if(isClickable)
+            OnNodeHovered?.Invoke(this, true);
+    }
+
+    public void OnMouseExit()
+    {
+        if(isClickable)
+            OnNodeHovered?.Invoke(this, false);
+    }
+
+    private void ColorChange(NodeState state)
+    {
+        switch (state)
+        {
+            case NodeState.ACTIVE:
+                sr.color = new Color(1f, 203f / 255f, 158f / 255f);
+                break;
+            case NodeState.INACTIVE:
+                sr.color = new Color(103f / 255f, 79f / 255f, 58f / 255f);
+                break;
+            case NodeState.PASSED:
+                sr.color = new Color(190f / 255f, 148f / 255f, 55f / 255f);
+                break;
+            default:
+                sr.color = new Color(103f / 255f, 79f / 255f, 58f / 255f);
+                break;
+        }
+    }
+
+    public void Propagate()
+    {
+        foreach (Line line in incomingLines)
+        {
+            line.Resolve();
+        }
+        foreach (Line line in outgoingLines)
+        {
+            line.fromNodeWasChosen = true;
+            Node outNode = line.toNode;
+            outNode.SetNodeState(NodeState.ACTIVE);
+        }
+        SetNodeState(NodeState.PASSED);
     }
 }

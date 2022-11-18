@@ -27,6 +27,25 @@ public class Map : MonoBehaviour
         InitAllLayers(layers, numberOfLayers);
 
         InitPathLayers();
+
+        Node.OnNodeClicked += OnEventClicked;
+    }
+
+    void OnEventClicked(Node node)
+    {
+        Debug.Log("Evento: " + node.GetNodeData().eventName);
+        foreach (List<Node> layer in layers)
+        {
+            if (layer.Contains(node))
+            {
+                foreach(Node node2 in layer)
+                {
+                    node2.SetNodeState(Node.NodeState.INACTIVE);
+                }
+                break;
+            }
+        }
+        node.Propagate();
     }
 
     void InitPathLayers()
@@ -209,7 +228,7 @@ public class Map : MonoBehaviour
     {
         List<Node> tempLayer = new List<Node>();
         InitLayer(tempLayer, firstLayerXpos, 1);
-        tempLayer[0].isClickable = true;
+        tempLayer[0].SetNodeState(Node.NodeState.ACTIVE);
         tempLayer[0].AssignNodeData(startNode);
         layers.Add(tempLayer);
 
