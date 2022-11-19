@@ -108,10 +108,19 @@ public class Node : MonoBehaviour
         }
         foreach (Line line in outgoingLines)
         {
-            line.fromNodeWasChosen = true;
+            line.FromNodeBecomesChosen();
             Node outNode = line.toNode;
             outNode.SetNodeState(NodeState.ACTIVE);
         }
         SetNodeState(NodeState.PASSED);
+    }
+
+    public void Deactivate()
+    {
+        SetNodeState(NodeState.INACTIVE);
+        foreach (Line line in incomingLines)
+        {
+            line.Deactivate();
+        }
     }
 }
