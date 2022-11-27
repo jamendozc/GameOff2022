@@ -40,7 +40,7 @@ public class Map : MonoBehaviour
             {
                 foreach(Node node2 in layer)
                 {
-                    node2.SetNodeState(Node.NodeState.INACTIVE);
+                    node2.Deactivate();
                 }
                 break;
             }
