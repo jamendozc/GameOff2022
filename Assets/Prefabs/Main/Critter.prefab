@@ -139,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1402231049061497828}
   - component: {fileID: 5539762175217290274}
+  - component: {fileID: 8828959202297573617}
   m_Layer: 0
   m_Name: Critter
   m_TagString: Untagged
@@ -212,6 +213,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8828959202297573617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2500741683977399956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff8afe4ee92ee9b4a8008edbdedccf29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  critterData: {fileID: 11400000, guid: 7611f2ea082c8c047933b88f5a54718d, type: 2}
+  critterAnim: {fileID: 515944286845280996}
+  farAwayPosition: {fileID: 0}
 --- !u!1 &3871565377065910431
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,6 +325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e740907828af1408e0533a20982dd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facingLeft: 1
 --- !u!95 &4391769572708781696
 Animator:
   serializedVersion: 3
@@ -322,7 +339,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: f16e5d2925f9175428c887f5b291733d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
