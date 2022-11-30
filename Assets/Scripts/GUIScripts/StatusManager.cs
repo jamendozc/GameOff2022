@@ -16,6 +16,10 @@ public class StatusManager : MonoBehaviour
 
     public void SetFlags(bool[] flags)
     {
+        if(sprites == null)
+        {
+            sprites = GetComponentsInChildren<Image>();
+        }
         for (int i = 0; i < flags.Length; i++)
         {
             sprites[i].enabled = flags[i];

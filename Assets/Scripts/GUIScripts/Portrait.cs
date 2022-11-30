@@ -21,13 +21,19 @@ public class Portrait : MonoBehaviour
         statusConditionsManager.SetFlags(flags);
     }
 
-    private void SetFlags(bool[] flags)
+    public void SetCritterFace(Sprite face)
+    {
+        critterFace = face;
+        headshot.sprite = critterFace;
+    }
+
+    public void SetFlags(bool[] flags)
     {
         this.flags = flags;
         statusConditionsManager.SetFlags(flags);
     }
 
-    private void RenderHappiness(float happiness)
+    public void RenderHappiness(float happiness)
     {
         happinessMask.padding = new Vector4(0,0,0, 100 - happiness * 10);
     }

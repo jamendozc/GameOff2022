@@ -227,6 +227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   critterData: {fileID: 11400000, guid: 7611f2ea082c8c047933b88f5a54718d, type: 2}
   critterAnim: {fileID: 515944286845280996}
+  portraitPrefab: {fileID: 5750473320365080548, guid: eecea30259498b64d8d07164bfb52816, type: 3}
   farAwayPosition: {fileID: 0}
 --- !u!1 &3871565377065910431
 GameObject:
